@@ -13,6 +13,12 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
+    - name: Set up Java
+      uses: actions/setup-java@v4
+      with:
+         distribution: temurin
+         java-version: '21'
+         cache: maven
     - name: mvn test
       id: mvn-test
       uses: classroom-resources/autograding-command-grader@v1
