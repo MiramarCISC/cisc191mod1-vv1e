@@ -28,10 +28,12 @@ public class StudentArrayToolkit {
      */
     @Nullable // <- Annotation useful for IDEs
     public static Student findByIdLinear(Student[] students, int id) {
-        return Arrays.stream(students) // Get Students as a lazy Stream
-            .filter(student -> student.getId() == id) // Limit Stream to only Students with an ID == id
-            .findFirst() // Get first (and only) Student from Stream
-            .orElse(null); // Return Student or null if they do not exist
+        for (Student student : students) {
+            if (student.getId() == id) {
+                return student;
+            }
+        }
+        return null; // Triggered when no student is found.
     }
 
     /**
