@@ -1,47 +1,61 @@
 package edu.sdccd.cisc191;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.util.Arrays;
 import java.util.Comparator;
 
-/**
- * Module 1 - Part C
- * Utility methods for working with Student[].
- *
- * IMPORTANT:
- * - Methods that return Student[] must return NEW arrays (defensive copy).
- * - For sorting, use a Comparator created with a lambda or method references.
- */
 public class StudentArrayToolkit {
 
     /**
      * Returns a NEW array sorted by:
      * 1) GPA descending
      * 2) name ascending (tie-breaker)
-     *
-     * Must not modify the original array.
      */
     public static Student[] copySortedByGpaDesc(Student[] students) {
-        // TODO: defensive copy + Arrays.sort with Comparator lambda
-        throw new UnsupportedOperationException("Not implemented yet");
+        Student[] newStudents = Arrays.copyOf(students, students.length);
+        Comparator<Student> comparator = Comparator
+            .comparingDouble(Student::getGpa).reversed() // Compare GPA descending
+            .thenComparing(Student::getName); // Compare name ascending
+
+        Arrays.sort(newStudents, comparator);
+        return newStudents;
     }
 
     /**
      * Linear search for a student by id.
      * Returns the Student if found, otherwise null.
      */
+    @Nullable // <- Annotation useful for IDEs
     public static Student findByIdLinear(Student[] students, int id) {
-        // TODO: implement
-        throw new UnsupportedOperationException("Not implemented yet");
+        for (Student student : students) {
+            if (student.getId() == id) {
+                return student;
+            }
+        }
+        return null; // Triggered when no student is found.
     }
 
     /**
-     * Returns a NEW array containing the top N students by GPA desc (ties: name asc).
-     * If n > students.length, return all students (sorted).
-     * If n == 0, return an empty array.
+     * Returns a NEW array containing the top N (at most) students by GPA desc (ties: name asc).
      * @throws IllegalArgumentException if n < 0
      */
     public static Student[] topNByGpa(Student[] students, int n) {
-        // TODO: validate n, sort copy, return first n in a new array
-        throw new UnsupportedOperationException("Not implemented yet");
+        if (n < 0) {
+            throw new IllegalArgumentException("Cannot get a negative amount of students");
+        } else if (n == 0) {
+            // Returns empty array if n == 0
+            return new Student[]{};
+        }
+
+        // Sorting students (GPA desc, Name asc)
+        Student[] newStudents = copySortedByGpaDesc(students);
+
+        if (n > newStudents.length) {
+            return newStudents;
+        } else {
+            // NOTE: Technically wasteful, but the array will not be big enough to matter
+            return Arrays.copyOf(newStudents, n);
+        }
     }
 }

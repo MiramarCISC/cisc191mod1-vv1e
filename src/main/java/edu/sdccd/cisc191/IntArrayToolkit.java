@@ -2,14 +2,6 @@ package edu.sdccd.cisc191;
 
 import java.util.Arrays;
 
-/**
- * Module 1 - Part A
- * Utility methods for working with int[].
- *
- * IMPORTANT:
- * - Do not print inside these methods.
- * - Do not modify input arrays unless the method explicitly says so.
- */
 public class IntArrayToolkit {
 
     /**
@@ -17,8 +9,12 @@ public class IntArrayToolkit {
      * @throws IllegalArgumentException if a is null
      */
     public static int sum(int[] a) {
-        // TODO: implement
-        throw new UnsupportedOperationException("Not implemented yet");
+        if (a == null) {
+            throw new IllegalArgumentException("An null array cannot be summed.");
+        }
+
+        return Arrays.stream(a) // Get ints as Stream
+            .sum(); // Sum up all ints
     }
 
     /**
@@ -26,8 +22,15 @@ public class IntArrayToolkit {
      * @throws IllegalArgumentException if a is null or empty
      */
     public static int max(int[] a) {
-        // TODO: implement
-        throw new UnsupportedOperationException("Not implemented yet");
+        if (a == null) {
+            throw new IllegalArgumentException("An null array cannot have a max value.");
+        } else if (a.length == 0) { // Avoiding a NullPointerException
+            throw new IllegalArgumentException("An empty array cannot have a max value.");
+        }
+
+        return Arrays.stream(a) // Get ints as Stream
+            .max() // Get the maximum int
+            .getAsInt(); // Return int
     }
 
     /**
@@ -35,17 +38,29 @@ public class IntArrayToolkit {
      * @throws IllegalArgumentException if a is null
      */
     public static int indexOf(int[] a, int target) {
-        // TODO: implement
-        throw new UnsupportedOperationException("Not implemented yet");
+        if (a == null) {
+            throw new IllegalArgumentException("A null array cannot be searched");
+        }
+
+        return Arrays.stream(a) // Get IntStream
+            .boxed() // Convert to Stream<Integer> (Lists can only handle Integer class instances)
+            .toList() // Convert to List<Integer>
+            .indexOf(target); // Get index of element target as an unsigned int (or -1 if missing)
     }
 
     /**
      * Returns a NEW array containing the same values as a, sorted ascending.
-     * Must not modify the original array.
+     * Does not modify the original array.
      * @throws IllegalArgumentException if a is null
      */
     public static int[] copySortedAscending(int[] a) {
-        // TODO: implement (hint: defensive copy + Arrays.sort)
-        throw new UnsupportedOperationException("Not implemented yet");
+        if (a == null) {
+            throw new IllegalArgumentException("A null array cannot be sorted");
+        }
+
+        int[] newA = Arrays.copyOf(a, a.length); // Clone int[]
+        Arrays.sort(newA); // Sort int[]
+
+        return newA;
     }
 }
