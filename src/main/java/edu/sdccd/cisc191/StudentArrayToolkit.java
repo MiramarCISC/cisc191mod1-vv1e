@@ -18,7 +18,7 @@ public class StudentArrayToolkit {
             .comparingDouble(Student::getGpa).reversed() // Compare GPA descending
             .thenComparing(Student::getName); // Compare name ascending
 
-        Arrays.sort(newStudents, comparator);
+        Arrays.sort(newStudents, comparator); // Very easy to read
         return newStudents;
     }
 
@@ -53,7 +53,7 @@ public class StudentArrayToolkit {
 
         if (n > newStudents.length) {
             return newStudents;
-        } else {
+        } else { // Could use Math.min() here instead of an if else branch
             // NOTE: Technically wasteful, but the array will not be big enough to matter
             return Arrays.copyOf(newStudents, n);
         }
