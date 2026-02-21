@@ -31,6 +31,8 @@ public class IntArrayToolkit {
         return Arrays.stream(a) // Get ints as Stream
             .max() // Get the maximum int
             .getAsInt(); // Return int
+        
+        //  Personal opinion that although it's shorter it's slightly less readable + does more work than a standard loop
     }
 
     /**
@@ -46,6 +48,8 @@ public class IntArrayToolkit {
             .boxed() // Convert to Stream<Integer> (Lists can only handle Integer class instances)
             .toList() // Convert to List<Integer>
             .indexOf(target); // Get index of element target as an unsigned int (or -1 if missing)
+        
+        // Allocates n Integer objects and various other things
     }
 
     /**
