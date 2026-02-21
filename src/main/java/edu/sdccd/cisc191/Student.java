@@ -56,7 +56,7 @@ public class Student {
     public String toString() {
         // Ex: Student{id=0, name='foo', gpa=4.3}
         return String.format(
-            "%s{id=%d, name='%s', gpa=%.1f}",
+            "%s{id=%d, name='%s', gpa=%.1f}", // Very clean
             this.getClass().getSimpleName(), id, name, gpa
         );
     }
